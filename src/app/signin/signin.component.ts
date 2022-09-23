@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
 import { DigitalBooksService } from '../services/digitalbooks.service';
@@ -9,11 +10,25 @@ import { ShowBooksComponent } from '../searchbooks/show-books/show-books.compone
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css']
 })
+
 export class SigninComponent implements OnInit {
   response :any;
   token : string="";
   usernameC:any;
   passwordC:any;
+
+  signinForm = new FormGroup({
+    user : new FormControl('',[Validators.required]),
+    password : new FormControl('',[Validators.required])
+  })
+
+  get user(){
+    return this.signinForm.get('user');
+  }
+
+  get password(){
+    return this.signinForm.get('password');
+  }
   constructor(private service: DigitalBooksService,public router:Router) { }
 
   ngOnInit(): void {
