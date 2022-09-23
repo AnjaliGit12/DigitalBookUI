@@ -43,23 +43,29 @@ export class DigitalBooksService {
     SearchBooks(c:string, aID:string, p: number ):Observable<any[]>{
         return this.https.get<any>(this.baseUrl +"api/Books/SearchBooks?cId="+ c+"&aId="+aID+"&price="+p);
     }
+    // Search author books
+    SearchAuthorBooks(aID:string):Observable<any[]>{
+        return this.https.get<any>(this.baseUrl +"api/Books/GetAuthorBook?userId="+aID);
+    }
     // Save book
     SaveBook(book : Book):Observable<Book>{
         return this.https.post<Book>(this.baseUrl + "api/Books",book);
     }
     // Purchase 
     PurchaseBook(purchases : purchase):Observable<purchase>{
-        return this.https.post<purchase>(this.baseUrl + "api/Purchases",purchases);
+        return this.https.post<purchase>("http://localhost:7270/api/BuyBook",purchases);
     }
-
-    //Book History
+    // BlockBook(bid:number, uid:number, status: number):Observable<any>{
+    //     return this.https.post<any>(this.baseUrl + "api/Books/UpdateBookStatus/",bid+"/",uid+"/",status);
+    // }
+    //Book History}
     GetBookHistory(emailId :string):Observable<any>{
-        return this.https.get<any>(this.baseUrl +"Purchases/BookHistory/"+emailId);
+        return this.https.get<any>(this.baseUrl +"api/Purchases/GetPurchasedBookHistory?EmailId="+emailId);
     }
 
     //Get Book List For Reader
     GetBookListReader(emailId :string):Observable<any>{
-        return this.https.get<any>(this.baseUrl +"GetBooksWithStatus/"+emailId);
+        return this.https.get<any>(this.baseUrl +"api/Purchases/GetPurchasedBookHistory?EmailId="+emailId);
     }
     //Check User Logged in or not
     CheckUserLoggedInOrNot():boolean{

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { purchase } from '../Model/purchasemodel';
 import { DigitalBooksService } from '../services/digitalbooks.service';
 
@@ -14,20 +15,17 @@ export class PurchaseComponent implements OnInit {
   display = "none";
 
   objpurchase : purchase={
-    PurchaseId: 0,
-    EmailId : '',
-    BookId : 0,
-    PaymentMode : '',
-    IsRefunded : 'Y'
+    emailid : '',
+    bookid : 0
   }
-  constructor(private services: DigitalBooksService) { }
+  constructor(private services: DigitalBooksService,public router:Router) { }
 
   ngOnInit(): void {
   }
 
   loadBookHistory(){
     
-    this.services.GetBookHistory(this.objpurchase.EmailId).subscribe(
+    this.services.GetBookHistory(this.objpurchase.emailid).subscribe(
       response => {this.bookHistoryList = response;
         this.display = "block";
       }
@@ -35,9 +33,10 @@ export class PurchaseComponent implements OnInit {
   }
 
   onSubmit(){
-    this.objpurchase.BookId = this.bookID;
+    this.objpurchase.bookid = this.bookID;
     this.services.PurchaseBook(this.objpurchase).subscribe(
-      response => { alert("Book Purchased Successfully.");
+      response => { alert("Book Purchased Successfully. Please sign in to read Book");
+      this.router.navigate(['/reader']);  
       this.loadBookHistory(); }
     )
   }

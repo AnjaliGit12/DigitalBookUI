@@ -33,7 +33,7 @@ export class SigninComponent implements OnInit {
       localStorage.setItem('user', JSON.stringify(this.response.user));
       let headerComponentObj = new HeaderComponent(this.service,this.router);
       headerComponentObj.ngOnInit();
-      if(this.response.user.roleId == 1) //This is Author
+      if(this.response.user.roleId == 2) //This is Author
       {
         this.router.navigate(['/author']); 
         console.log('author'); 

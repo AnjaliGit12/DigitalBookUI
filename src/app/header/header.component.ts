@@ -7,8 +7,7 @@ import { DigitalBooksService } from '../services/digitalbooks.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
- 
+export class HeaderComponent implements OnInit { 
   constructor(private service: DigitalBooksService,public router:Router) { }
 
   ModalTitle:string="";
@@ -26,7 +25,7 @@ export class HeaderComponent implements OnInit {
   SignupModaldisplay ="none";
   userLoggedIn :boolean =false;
   showSignInSignUp : boolean = true;
-
+  loginuserName:any;
   openModal() {
     this.ModalTitle ="Sign Up"; this.displaybook = "none";
     this.SignupModaldisplay = "block";
@@ -45,6 +44,7 @@ export class HeaderComponent implements OnInit {
     this.display = "block";    
     this.SignupModaldisplay = "none";
     this.displaybook = "none";
+   
   }
   onCloseHandled() {
     this.SignupModaldisplay = "none";
@@ -62,10 +62,14 @@ export class HeaderComponent implements OnInit {
     console.log("loggedIn =" + loggedIn);
   }
   ngOnInit(): void {
-    console.log('here');
     this.userLoggedIn = this.service.CheckUserLoggedInOrNot();
     this.isUserLoggedIn(this.userLoggedIn);
-     console.log("in ngonInit =" + this.userLoggedIn);
+    this.GetUserID();
+  }
+  GetUserID(){
+    let values = JSON.parse(localStorage.getItem("user") || '');
+    this.loginuserName=values.userName;
+    console.log(this.loginuserName);
   }
 
 }

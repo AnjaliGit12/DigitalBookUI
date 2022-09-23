@@ -19,6 +19,8 @@ export class ReaderComponent implements OnInit {
     ModalReadBookTitle : string ="Read Book";
     bookContent : string ="";
     userEmailID : string ="";
+    userId:any;
+    loginuserName:any;
 
     constructor(private services:DigitalBooksService){}
 
@@ -39,19 +41,19 @@ export class ReaderComponent implements OnInit {
       GetUserID(){
         let values = JSON.parse(localStorage.getItem("user") || '');
         this.userEmailID = values.emailId;
-        console.log(this.userEmailID);
+        this.userId = values.userId;   
+        this.loginuserName=values.userName;
       }
 
-      loadBookHistory(){
-    
-        this.services.GetBookListReader(this.userEmailID).subscribe(
-          response => {this.searchResult = response; }
+      loadBookHistory(){    
+        this.services.GetBookHistory(this.userEmailID).subscribe(
+          response => {this.searchResult = response; console.log(response);}
         )
       }
 
-      readBookClick(item:Book){
-        this.book =item; 
-        this.bookContent= this.book.bookContent;
+      readBookClick(val: string){
+        console.log(val);
+        this.bookContent= val;
         this.readBookdisplay= 'block';
       }
 }

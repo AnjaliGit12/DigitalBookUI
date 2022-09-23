@@ -1,28 +1,32 @@
-<div class="jumbotron text-center">
-    <div class="container">
+<h6>Welcome {{loginuserName}}</h6>
+<hr>
+<hr>
+    <div class="col-md10" style="float: right;">
     <button type="button" class="btn btn-success" (click)="openModal()">Add Book</button>
-    </div>
-    </div>
-    
+    </div>    
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>Title</th>
-                <th>Author </th>
                 <th>Publisher </th>
                 <th>Price</th>
                 <th>Publish Date</th>
-                <th>Category</th>
+                <th>Book Status</th>
+                <!-- <th>Click To Edit</th> -->
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let book of searchResult">
-                <td>{{ book.title}}</td>
-                <td>{{ book.author}}</td>
+                <td>{{ book.bookName}}</td>
                 <td>{{ book.publisher}}</td>
                 <td>{{ book.price}}</td>
                 <td>{{ book.publishedDate | date}}</td>
-                <td>{{ book.categoryName}}</td>
+                <td>{{ book.active}}</td>
+                <!-- <td>
+                    <button type="button" class="btn btn-info" 
+                    data-bs-toggle="modal" data-bs-target="#editbook"
+                    (click)="blockBook()"
+                    data-backdrop="static" data-keyboard="false">Block Book</button></td> -->
             </tr>
         </tbody>
     </table>
@@ -45,4 +49,5 @@
            </div>
             </div>
     </div>
+
     </div>
